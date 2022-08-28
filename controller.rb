@@ -57,23 +57,32 @@ def network_selection
    if net_array.empty?
       puts "Controller does not have any networks to manage..."
    else
-      i = 1
-      printf("\n\n>====[ Available Networks ]====<\n")
-      net_array.each do |elem|
-         puts "#{i}) #{elem}"
-         i += 1
+      nid = 999
+      while (nid !=0)
+         i = 1
+         printf("\n\n>====[ Available Networks ]====<\n")
+         net_array.each do |elem|
+            puts "#{i}) #{elem}"
+            i += 1
+         end
+         printf("0) to exit\n")
+         printf("Please select a network ID: ")
+         nid = gets.chomp.to_i
+         if nid <= 0
+            break
+         elsif nid <= net_array.count 
+            puts "you have selected #{net_array[nid - 1]}!"
+         else
+            break
+         end
       end
-      printf("0) to exit\n")
-      printf("Please select a network ID: ")
-      nid = gets.chomp.to_i
-      puts "you have selected #{net_array[nid - 1]}!"
    end
 end
 
 puts "Welcome to zt1rb2, host is <#{@zt_host_id}>"
 
-select = 0
-while (select !=9)
+select = 999
+while (select !=0)
    printf(">====[ zt1rb2 ]====<\n")
    printf("1) list networks\n2) create new network\n")
    printf("3) manage network\n")
