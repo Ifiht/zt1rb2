@@ -58,6 +58,7 @@ def network_selection
       puts "Controller does not have any networks to manage..."
    else
       i = 1
+      printf("\n\n>====[ Available Networks ]====<\n")
       net_array.each do |elem|
          puts "#{i}) #{elem}"
          i += 1
@@ -65,7 +66,7 @@ def network_selection
       printf("0) to exit\n")
       printf("Please select a network ID: ")
       nid = gets.chomp.to_i
-      puts "you have selected #{net_array[nid]}!"
+      puts "you have selected #{net_array[nid - 1]}!"
    end
 end
 
