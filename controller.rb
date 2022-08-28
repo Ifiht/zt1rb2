@@ -56,7 +56,6 @@ def network_selection
    net_array = eval(res.body)
    if net_array.empty?
       puts "Controller does not have any networks to manage..."
-      break
    else
       i = 1
       net_array.each do |elem|
