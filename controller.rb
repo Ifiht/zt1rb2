@@ -43,6 +43,7 @@ def post_create_net
    uri = URI("http://#{@host}:#{@port}/controller/network/#{@zt_host_id}______")
    req = Net::HTTP::Post.new(uri, 'name' => "test123")
    req['X-ZT1-Auth'] = @auth
+   req.body = '{}'
    res = @http.request(req)
    puts res.body + "\n\n"
 end
