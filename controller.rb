@@ -48,25 +48,50 @@ def post_create_net
    puts res.body + "\n\n"
 end
 
+def network_selection
+   uri = URI("http://#{@host}:#{@port}/controller/network")
+   req = Net::HTTP::Get.new(uri)
+   req['X-ZT1-Auth'] = @auth
+   res = @http.request(req)
+   net_array = eval(res.body)
+   if net_array.empty?
+      puts "Controller does not have any networks to manage..."
+      break
+   else
+      i = 1
+      net_array.each do |elem|
+         puts "#{i}) #{elem}"
+         i += 1
+      end
+      printf("0) to exit\n")
+      printf("Please select a network ID: ")
+      nid = gets.chomp.to_i
+      puts "you have selected #{net_array[nid]}!"
+   end
+end
+
 puts "Welcome to zt1rb2, host is <#{@zt_host_id}>"
 
 select = 0
 while (select !=9)
    printf(">====[ zt1rb2 ]====<\n")
    printf("1) list networks\n2) create new network\n")
+   printf("3) manage network\n")
    printf("7) stats - host\n8) stats - controller\n")
-   printf("9) to exit: ")
+   printf("0) to exit: ")
    select = gets.chomp.to_i
 
    if (select == 1)
       get_nets()
    elsif (select == 2)
       post_create_net()
+   elsif (select == 3)
+      network_selection()
    elsif (select == 7)
       get_stats()
    elsif (select == 8)
       get_ctrl_stats()
-   elsif (select == 9)
+   elsif (select == 0)
       puts "Goodbye\!"
       break
    else
